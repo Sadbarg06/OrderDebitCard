@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/hxky72ik4lvdtfjk?svg=true)](https://ci.appveyor.com/project/Sadbarg06/orderdebitcard)
