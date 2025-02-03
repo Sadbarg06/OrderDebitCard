@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DebitCardOrderFormTest {
     private WebDriver driver;
@@ -23,7 +24,7 @@ public class DebitCardOrderFormTest {
         options.addArguments("--no-sandbox");
         // options.addArguments("--headless");
         driver = new ChromeDriver(options);
-        driver.get("http://localhost:9999/");
+        driver.get("http://localhost:9999");
     }
 
     @AfterEach
@@ -51,10 +52,9 @@ public class DebitCardOrderFormTest {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79012345678");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector(".button")).click();
-        WebElement actualElement = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input_sub"));
-        String actualText = actualElement.getText().trim();
-
-        assertEquals("Поле обязательно для заполнения", actualText);
-        Assertions.assertTrue(actualElement.isDisplayed());
+        assertEquals("Поле обязательно для заполнения",
+                driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim());
+        assertTrue(driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).isDisplayed());
     }
+
 }
