@@ -22,7 +22,7 @@ public class DebitCardOrderFormTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
-        // options.addArguments("--headless");
+        options.addArguments("--headless");
         driver = new ChromeDriver(options);
         driver.get("http://localhost:9999");
     }
@@ -56,6 +56,7 @@ public class DebitCardOrderFormTest {
                 driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim());
         assertTrue(driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).isDisplayed());
     }
+
     @Test
     void shouldSendWrongPhoneNumber() {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Кондратьева Анна");
@@ -66,6 +67,7 @@ public class DebitCardOrderFormTest {
                 driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim());
         assertTrue(driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).isDisplayed());
     }
+
     @Test
     void shouldSendDoubleSurnameSeparatedHyphen() {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Петров-Водкин Артем");
@@ -74,9 +76,16 @@ public class DebitCardOrderFormTest {
         assertTrue(driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid")).isDisplayed());
     }
 
- @Test
+    @Test
     void shouldSendFormLatin() {
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Ivanov Ivan");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79012345678");
+        driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
+        driver.findElement(By.cssSelector(".button")).click();
+        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.",
+                driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim());
+        assertTrue(driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).isDisplayed());
 
- }
+    }
 
 }
