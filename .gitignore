@@ -41,3 +41,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 .idea/
+*.hs_err_pid98060.log
+*.replay_pid98060.log
+
