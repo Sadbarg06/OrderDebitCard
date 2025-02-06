@@ -87,5 +87,16 @@ public class DebitCardOrderFormTest {
         assertTrue(driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).isDisplayed());
 
     }
+    @Test
+    void shouldSendWithoutPhoneNumber() {
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Кондратьева Анна");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("");
+        driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
+        driver.findElement(By.cssSelector(".button")).click();
+        assertEquals("Поле обязательно для заполнения",
+                driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim());
+        assertTrue(driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).isDisplayed());
+
+    }
 
 }
